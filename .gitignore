@@ -1,0 +1,18 @@
+# data (kaggle, not redistributable)
+/train/
+/test/
+/data/
+*.zip
+
+# python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+*.egg-info/
+
+# local notes / tooling
+.claude/
+CLAUDE.md
+docs/NEXT_SESSION_KICKOFF.md
+notebook1a3ab20ab1.ipynb

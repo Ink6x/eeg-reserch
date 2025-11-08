@@ -1,0 +1,20 @@
+[project]
+name = "eegdemo"
+version = "0.1.0"
+description = "把持動作 EEG イベント検出 — ポートフォリオ用解析プロジェクト (v1-v4 baseline) + eeg99 (v5+ competition-grade)"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "."]
+markers = [
+    "unit: lightweight in-process unit tests",
+    "integration: tests that touch IO / heavy compute",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
