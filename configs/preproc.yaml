@@ -1,0 +1,34 @@
+# 前処理設定 — すべてのフィルタは因果的 (lfilter / sosfilt)
+# zero-phase (filtfilt) は使用禁止
+
+sampling_rate: 500  # Hz
+
+# 帯域フィルタ
+highpass_hz: 0.5   # RP (Readiness Potential) を削らない下限
+lowpass_hz: 45.0   # γ帯まで確保
+notch_hz: null     # FFT で line noise を確認後に設定
+
+# リファレンス
+reference: "CAR"   # Common Average Re-reference
+
+# アーチファクト除去
+artifact:
+  amplitude_threshold_uv: 150  # 振幅絶対値がこれを超える epoch を bad とする
+  bad_channel_z_threshold: 5.0 # チャネル分散の z-score がこれを超えると bad
+
+# Causal 正規化
+normalization:
+  method: "running_zscore"  # expanding window (過去サンプルのみ使用)
+  warmup_sec: 5.0           # 最初 N 秒は warmup (この間は全サンプルの平均/標準偏差を使う)
+
+# epoching (ERP解析用, フレーム分類とは別)
+epoch:
+  tmin_ms: -2000  # イベント前 2000ms
+  tmax_ms: 2000   # イベント後 2000ms
+  baseline_tmin_ms: -2500
+  baseline_tmax_ms: -2000
+
+# 分類用ウィンドウ (因果的スライディングウィンドウ)
+sliding_window:
+  window_ms: 500    # 過去 500ms を参照
+  step_ms: 2        # 2ms step (1 sample @ 500Hz)
