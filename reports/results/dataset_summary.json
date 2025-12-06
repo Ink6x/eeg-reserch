@@ -1,0 +1,20 @@
+{
+  "total_subjects": 12,
+  "total_files": 96,
+  "total_frames": 17985754,
+  "total_duration_hours": 9.99,
+  "total_trials": 3120,
+  "has_nan": false,
+  "positive_rate_pct": {
+    "HandStart": 2.602,
+    "FirstDigitTouch": 2.602,
+    "BothStartLoadPhase": 2.598,
+    "LiftOff": 2.602,
+    "Replace": 2.602,
+    "BothReleased": 2.602
+  },
+  "line_noise_snr_db": {
+    "50hz_snr_db": -0.14669365059312,
+    "60hz_snr_db": 0.17408382244424642
+  }
+}
