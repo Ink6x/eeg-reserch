@@ -1,0 +1,59 @@
+{
+  "within_subject": {
+    "mean_auc": 0.738,
+    "std_auc": 0.0439,
+    "ci_95": [
+      0.7124,
+      0.7622
+    ],
+    "per_subject": [
+      0.7739,
+      0.805,
+      0.7152,
+      0.787,
+      0.667,
+      0.7436,
+      0.768,
+      0.7719,
+      0.6729,
+      0.751,
+      0.6981,
+      0.7019
+    ],
+    "per_event_mean": {
+      "HandStart": 0.6676,
+      "FirstDigitTouch": 0.7455,
+      "BothStartLoadPhase": 0.754,
+      "LiftOff": 0.766,
+      "Replace": 0.764,
+      "BothReleased": 0.7306
+    }
+  },
+  "cross_subject": {
+    "mean_auc": 0.6737,
+    "std_auc": 0.0401,
+    "ci_95": [
+      0.6519,
+      0.6976
+    ],
+    "per_subject": [
+      0.7283,
+      0.6886,
+      0.6542,
+      0.6301,
+      0.6655,
+      0.6304,
+      0.7474,
+      0.728,
+      0.6424,
+      0.6795,
+      0.625,
+      0.6651
+    ]
+  },
+  "within_vs_cross": {
+    "cohens_d": 1.427,
+    "permutation_p": 0.0002,
+    "significant": true
+  }
+}
