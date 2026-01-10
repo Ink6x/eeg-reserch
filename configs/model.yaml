@@ -1,0 +1,69 @@
+# モデル設定
+
+n_channels: 32
+n_classes: 6       # 6 イベント (multi-label)
+sampling_rate: 500
+
+# デバイス設定
+# "dml" = AMD GPU (torch-directml), "cpu" = CPU フォールバック
+device: "dml"
+
+# ベースラインモデル
+baseline:
+  model: "logistic_regression"
+  features: "band_power"  # theta/alpha/mu/beta/gamma
+  window_ms: 500
+  C: 1.0
+
+lightgbm:
+  n_estimators: 500
+  learning_rate: 0.05
+  max_depth: 7
+  num_leaves: 63
+  subsample: 0.8
+  colsample_bytree: 0.8
+
+# CausalEEGConformer (独自モデル)
+causal_eeg_conformer:
+  # Temporal Causal Convolution
+  tcn_channels: [32, 64, 128]
+  tcn_kernel_size: 8        # 因果パディング = kernel_size - 1
+  tcn_dropout: 0.2
+
+  # Electrode Attention
+  electrode_attn_heads: 4
+  electrode_attn_dim: 64
+  use_spatial_prior: true   # 10-20 電極座標を position encoding に使用
+
+  # Riemann-inspired Covariance Pooling
+  cov_pool: true
+  cov_dim: 32               # 圧縮後の共分散特徴次元
+
+  # 分類ヘッド
+  hidden_dim: 256
+  dropout: 0.3
+
+  # 学習設定
+  window_samples: 250       # 500ms @ 500Hz の入力ウィンドウ
+  batch_size: 512
+  lr: 1.0e-3
+  weight_decay: 1.0e-4
+  n_epochs: 100
+  patience: 15              # early stopping
+  loss: "focal"             # 不均衡対策 (正例 ~3%)
+  focal_gamma: 2.0
+  label_smoothing: 0.05
+
+# ERP解析モデル設定 (H2/H3)
+erp_analysis:
+  events_of_interest: ["HandStart", "LiftOff"]
+  channels_of_interest: ["Cz", "FC1", "FC2", "C3", "C4"]
+  permutation_n_iter: 5000
+  cluster_alpha: 0.05
+
+# 評価設定
+evaluation:
+  primary_metric: "roc_auc_mean"  # 6イベントの列方向平均 AUC
+  cv_strategy: "subject_series_kfold"
+  n_splits: 12   # subject 数 (Leave-One-Subject-Out)
+  val_series: [7, 8]  # self hold-out 用
