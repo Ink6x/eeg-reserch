@@ -1,0 +1,67 @@
+{
+  "experiment": "v4 loss function comparison",
+  "date": "2026-05-07",
+  "subjects": [1, 5, 9],
+  "loss_types": ["focal", "bce_weighted", "bce_plain"],
+  "model": "EEGNet (causal padding fix)",
+  "config": {
+    "window_samples": 500,
+    "train_step": 20,
+    "val_step": 25,
+    "batch_size": 512,
+    "lr": 5e-4,
+    "weight_decay": 1e-4,
+    "n_epochs": 50,
+    "patience": 12,
+    "augmentation": "none"
+  },
+  "results": {
+    "auc": {
+      "focal":        {"1": 0.8142, "5": 0.6946, "9": 0.7026},
+      "bce_weighted": {"1": 0.8031, "5": 0.7230, "9": 0.7636},
+      "bce_plain":    {"1": 0.7987, "5": 0.7030, "9": 0.6727}
+    },
+    "near_half_ratio": {
+      "focal":        {"1": 0.0000, "5": 0.0000, "9": 0.0000},
+      "bce_weighted": {"1": 0.3326, "5": 0.1664, "9": 0.0001},
+      "bce_plain":    {"1": 0.0000, "5": 0.0000, "9": 0.0000}
+    },
+    "n_epochs_run": {
+      "focal":        {"1": 42, "5": 37, "9": 35},
+      "bce_weighted": {"1": 18, "5": 39, "9": 28},
+      "bce_plain":    {"1": 24, "5": 45, "9": 29}
+    },
+    "time_sec": {
+      "focal":        {"1": 549, "5": 518, "9": 471},
+      "bce_weighted": {"1": 238, "5": 546, "9": 376},
+      "bce_plain":    {"1": 316, "5": 630, "9": 388}
+    }
+  },
+  "summary": {
+    "mean_auc": {
+      "focal": 0.7371,
+      "bce_weighted": 0.7632,
+      "bce_plain": 0.7248
+    },
+    "mean_near_half": {
+      "focal": 0.0000,
+      "bce_weighted": 0.1664,
+      "bce_plain": 0.0000
+    },
+    "best_loss": "bce_weighted",
+    "best_mean_auc": 0.7632
+  },
+  "hypothesis_a1_verification": {
+    "claim": "Focal loss は 0.5 周辺に予測が集中する局所安定性がある",
+    "result": "REFUTED (反証)",
+    "evidence": "Focal loss の near_0.5 = 0.0000 (全被験者). むしろ bce_weighted で集中観察 (S1=0.33, S5=0.17). 予測分布の解析からは focal の 0.5 集中は確認されなかった",
+    "interpretation": "v2 RCA で立てた仮説 A1 は誤り。Focal loss は v2 で崩壊していた原因ではなかった可能性が高い。崩壊の真因は別 (window 不足、 アーキ不安定、 容量過剰など)"
+  },
+  "key_findings": [
+    "bce_weighted が平均最良 (0.7632), focal を +0.026 上回る",
+    "S9 で bce_weighted が大幅勝利 (0.7636 vs focal 0.7026, +0.061)",
+    "S1 では focal が僅差で勝利 (0.8142 vs 0.8031)",
+    "仮説 A1 (focal 0.5 局所安定) は反証",
+    "総実行時間 67.2 分"
+  ]
+}
