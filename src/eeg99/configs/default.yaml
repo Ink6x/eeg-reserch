@@ -1,0 +1,45 @@
+# Default config for eeg99. Components override individual sections via overlays.
+# Phase 0 placeholder.
+
+data:
+  root: "."
+  train_subdir: "train"
+  test_subdir: "test"
+  sfreq: 500.0
+  n_channels: 32
+  n_events: 6
+
+preprocess:
+  highpass_hz: 0.5
+  lowpass_hz: 45.0
+  filter_order: 4
+  notch_hz: null
+  car: true
+  running_zscore_window_s: 4.0
+
+filterbank:
+  bands:
+    - {name: delta, low: 1.0,  high: 4.0}
+    - {name: theta, low: 4.0,  high: 8.0}
+    - {name: alpha, low: 8.0,  high: 13.0}
+    - {name: beta,  low: 13.0, high: 30.0}
+    - {name: gamma, low: 30.0, high: 45.0}
+
+windows:
+  # samples at 500 Hz: 125 -> 250ms, 250 -> 500ms, 500 -> 1s, 1000 -> 2s, 2000 -> 4s
+  candidates: [125, 250, 500, 1000, 2000]
+  default: 500
+
+training:
+  seed: 0
+  batch_size: 256
+  epochs: 30
+  optimizer: adamw
+  lr: 1.0e-3
+  weight_decay: 1.0e-4
+  scheduler: cosine
+
+ensemble:
+  n_seeds: 5
+  bagging_pool_size: 100
+  selection_top_k: 40
