@@ -1,0 +1,10 @@
+# Overlay for the EEGNet+ multi-scale architecture (Component 1).
+# Phase 0 placeholder.
+
+model:
+  name: eegnet_plus
+  family: eegnet
+  branches: [125, 250, 500, 1000, 2000]
+  dropout: 0.4
+  subject_film: true
+  subject_embed_dim: 16

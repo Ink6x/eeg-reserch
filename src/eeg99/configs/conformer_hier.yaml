@@ -1,0 +1,13 @@
+# Overlay for HierarchicalCausalConformer (Component 5, original algorithm #2).
+# Phase 0 placeholder.
+
+model:
+  name: conformer_hier
+  family: conformer
+  scales:
+    short:  {window: 125,  d_model: 64,  n_heads: 4, depth: 2}
+    medium: {window: 500,  d_model: 96,  n_heads: 4, depth: 3}
+    long:   {window: 2000, d_model: 128, n_heads: 8, depth: 3}
+  causal_mask: true
+  subject_film: true
+  subject_embed_dim: 16
