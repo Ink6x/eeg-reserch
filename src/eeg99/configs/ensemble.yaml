@@ -1,0 +1,21 @@
+# Overlay for the ensemble layer.
+# Phase 0 placeholder.
+
+ensemble:
+  bagging:
+    architectures: [eegnet_plus, conformer_hier, tcn_multi, hybrid, ssl_ft]
+    windows: [250, 500, 1000, 2000]
+    seeds: [0, 1, 2, 3, 4]
+  selection:
+    metric: oof_auc
+    diversity: pairwise_corr
+    target_size: 40
+  stacking:
+    meta_learner: lightgbm
+    n_folds: 5
+    per_event: true
+  calibration:
+    method: hierarchical_platt
+  tta:
+    augmentations: [temporal_jitter, channel_mask, amplitude_scale, noise, mixup_test]
+    n_passes: 5
