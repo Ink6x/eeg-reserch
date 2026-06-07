@@ -4,10 +4,10 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from eeg99.features.band_power import BandPowerExtractor, BandPowerConfig
+from eeg99.features.band_power import BandPowerExtractor
 from eeg99.features.fbcsp import FBCSPConfig, FBCSPExtractor
-from eeg99.features.riemannian import RiemannianConfig, RiemannianExtractor
-from eeg99.features.time_domain import TimeDomainExtractor, N_FEATURES_PER_CHANNEL
+from eeg99.features.riemannian import RiemannianExtractor
+from eeg99.features.time_domain import N_FEATURES_PER_CHANNEL, TimeDomainExtractor
 from eeg99.utils.constants import N_CHANNELS, N_EVENTS
 
 # ---------------------------------------------------------------------------

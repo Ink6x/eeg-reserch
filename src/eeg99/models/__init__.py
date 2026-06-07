@@ -4,16 +4,18 @@ Every model implements :class:`BaseModel`. See ``docs/MASTER_PLAN_99.md`` §2.
 """
 from __future__ import annotations
 
+from .adapter import FiLMLayer, SubjectAdaptiveFiLM
 from .base import BaseModel
-from .adapter import SubjectAdaptiveFiLM, FiLMLayer
-from .eegnet_plus import MultiScaleEEGNetPlus, MultiScaleEEGNetConfig
-from .conformer_hier import HierarchicalCausalConformer, ConformerConfig
-from .hybrid import HybridModel, HybridConfig
-from .tcn_multi import MultiScaleTCN, TCNConfig
+from .conformer_hier import ConformerConfig, HierarchicalCausalConformer
+from .eegnet_plus import MultiScaleEEGNetConfig, MultiScaleEEGNetPlus
+from .hybrid import HybridConfig, HybridModel
 from .ssl_bendr import (
-    CausalBENDREncoder, BENDRConfig,
-    MaskedEEGPretrainer, CausalBENDRFinetuner,
+    BENDRConfig,
+    CausalBENDREncoder,
+    CausalBENDRFinetuner,
+    MaskedEEGPretrainer,
 )
+from .tcn_multi import MultiScaleTCN, TCNConfig
 
 __all__ = [
     "BaseModel",

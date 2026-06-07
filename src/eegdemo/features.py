@@ -9,7 +9,6 @@ from scipy.signal import butter, sosfilt, welch
 
 from .constants import CHANNELS, FREQ_BANDS, SAMPLING_RATE
 
-
 # ──────────────────────────────────────────────
 # 高速フィルタバンク帯域パワー (ベースライン用)
 # ──────────────────────────────────────────────
@@ -120,8 +119,8 @@ def time_domain_features(window: np.ndarray) -> np.ndarray:
     window: (n_samples, n_channels)
     returns: (n_features * n_channels,)
     """
-    from scipy.stats import skew, kurtosis
     from scipy.signal import hilbert
+    from scipy.stats import kurtosis, skew
 
     mav = np.abs(window).mean(axis=0)           # 平均絶対値
     rms = np.sqrt((window ** 2).mean(axis=0))   # RMS
@@ -243,7 +242,7 @@ def make_windows_causal_check(windows: np.ndarray, end_frames: np.ndarray) -> bo
     (テスト用; 常に True を返すはず)
     """
     win_size = windows.shape[1]
-    for i, end in enumerate(end_frames):
+    for end in end_frames:
         start = end - win_size + 1
         if start < 0:
             return False  # 範囲外

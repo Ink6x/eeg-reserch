@@ -4,11 +4,9 @@
 from __future__ import annotations
 
 import numpy as np
-from sklearn.metrics import roc_auc_score, average_precision_score, brier_score_loss
-from sklearn.model_selection import GroupKFold
+from sklearn.metrics import average_precision_score, brier_score_loss, roc_auc_score
 
 from .constants import EVENTS, SAMPLING_RATE
-
 
 # ──────────────────────────────────────────────
 # 指標計算

@@ -5,10 +5,10 @@ All operations are **strictly causal** — implemented via one-pass ``sosfilt``
 """
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 import numpy as np
-from scipy.signal import butter, sosfilt, sosfilt_zi
+from scipy.signal import butter, sosfilt
 
 from eeg99.utils.constants import SFREQ
 
@@ -45,7 +45,7 @@ class CausalPreprocessor:
     # Public API
     # ------------------------------------------------------------------
 
-    def fit(self, eeg: np.ndarray) -> "CausalPreprocessor":
+    def fit(self, eeg: np.ndarray) -> CausalPreprocessor:
         """Build filter coefficients from config (no data-dependent fitting).
 
         Parameters

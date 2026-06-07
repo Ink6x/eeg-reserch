@@ -11,14 +11,13 @@ Adaptation for eeg99
 """
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 import numpy as np
 from scipy.linalg import eigh
 from scipy.signal import butter, sosfilt
 
 from eeg99.utils.constants import N_EVENTS, SFREQ
-
 
 # ---------------------------------------------------------------------------
 # Band definitions (mirrored from filterbank for standalone use)
@@ -80,7 +79,7 @@ class FBCSPExtractor:
         self,
         X: np.ndarray,
         y: np.ndarray,
-    ) -> "FBCSPExtractor":
+    ) -> FBCSPExtractor:
         """Estimate CSP filters from labelled training windows.
 
         Parameters

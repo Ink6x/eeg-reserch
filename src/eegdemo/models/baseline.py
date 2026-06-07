@@ -9,7 +9,7 @@ from sklearn.multioutput import MultiOutputClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
-from ..constants import EVENTS, SAMPLING_RATE
+from ..constants import SAMPLING_RATE
 from ..features import extract_band_power_features
 
 
@@ -27,7 +27,9 @@ class BandPowerClassifier:
             ("clf", MultiOutputClassifier(base, n_jobs=-1)),
         ])
 
-    def fit(self, eeg: np.ndarray, labels: np.ndarray, fs: float = SAMPLING_RATE) -> "BandPowerClassifier":
+    def fit(
+        self, eeg: np.ndarray, labels: np.ndarray, fs: float = SAMPLING_RATE
+    ) -> BandPowerClassifier:
         """eeg: (n_frames, n_ch), labels: (n_frames, 6)"""
         X, centers = extract_band_power_features(eeg, fs, self.window_ms, step_ms=4.0)
         y = labels[centers]

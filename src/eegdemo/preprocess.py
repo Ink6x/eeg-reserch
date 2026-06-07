@@ -6,8 +6,7 @@ filtfilt / zero-phase フィルタは未来情報を参照するため使用禁�
 from __future__ import annotations
 
 import numpy as np
-from scipy.signal import butter, sosfilt, iirnotch
-
+from scipy.signal import butter, iirnotch, sosfilt
 
 # ──────────────────────────────────────────────
 # 因果フィルタ
@@ -98,7 +97,6 @@ def causal_running_zscore(
     """
     n, c = eeg.shape
     eeg64 = eeg.astype(np.float64)
-    warmup = max(2, int(warmup_sec * fs))
 
     # expanding sum と sum-of-squares (インデックスをずらして causal にする)
     cum_sum = np.cumsum(eeg64, axis=0)          # cumsum[t] = sum(0..t)

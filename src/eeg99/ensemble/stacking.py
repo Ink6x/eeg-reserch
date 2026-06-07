@@ -65,7 +65,7 @@ class StackingMetaLearner:
         oof_preds: np.ndarray,
         labels: np.ndarray,
         subject_ids: np.ndarray,
-    ) -> "StackingMetaLearner":
+    ) -> StackingMetaLearner:
         """Fit the stacking meta-learner.
 
         Parameters
