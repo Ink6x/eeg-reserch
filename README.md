@@ -1,5 +1,7 @@
 # eeg-research
 
+[![CI](https://github.com/Ink6x/eeg-reserch/actions/workflows/ci.yml/badge.svg)](https://github.com/Ink6x/eeg-reserch/actions/workflows/ci.yml)
+
 EEG decoding experiments on the Kaggle [Grasp-and-Lift EEG Detection](https://www.kaggle.com/c/grasp-and-lift-eeg-detection) dataset.
 
 - `src/eegdemo/` — baseline (band-power + logreg), EEGNet, causal conformer
