@@ -3,6 +3,28 @@ name = "eegdemo"
 version = "0.1.0"
 description = "把持動作 EEG イベント検出 — ポートフォリオ用解析プロジェクト (v1-v4 baseline) + eeg99 (v5+ competition-grade)"
 requires-python = ">=3.11"
+dependencies = [
+    "numpy",
+    "scipy",
+    "scikit-learn",
+    "pandas",
+    "pyyaml",
+    "torch",
+    "matplotlib",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "ruff",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
