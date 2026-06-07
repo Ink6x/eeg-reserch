@@ -40,3 +40,7 @@ target-version = "py311"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP"]
+
+[tool.ruff.lint.per-file-ignores]
+# CHANNEL_POS_2D is aligned to mirror the scalp layout — keep rows intact
+"src/eegdemo/constants.py" = ["E501"]

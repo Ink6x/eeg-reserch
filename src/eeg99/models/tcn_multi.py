@@ -14,8 +14,9 @@ Fusion: concat → Linear(3*d_model → d_model) → n_events
 """
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -163,8 +164,7 @@ class MultiScaleTCN(nn.Module, BaseModel):
     # BaseModel interface
     # ------------------------------------------------------------------
 
-    def predict_proba(self, eeg: "np.ndarray", subject_id: int) -> "np.ndarray":  # type: ignore[override]
-        import numpy as np
+    def predict_proba(self, eeg: np.ndarray, subject_id: int) -> np.ndarray:  # type: ignore[override]
         self.eval()
         device = next(self.parameters()).device
         x = torch.from_numpy(eeg.T[None]).float().to(device)

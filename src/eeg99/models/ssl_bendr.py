@@ -31,11 +31,12 @@ from __future__ import annotations
 import copy
 from dataclasses import dataclass
 
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from eeg99.models.adapter import FiLMLayer, SubjectAdaptiveFiLM
+from eeg99.models.adapter import SubjectAdaptiveFiLM
 from eeg99.models.base import BaseModel, ModelMetadata
 from eeg99.utils.constants import N_CHANNELS, N_EVENTS, N_SUBJECTS
 
@@ -203,7 +204,7 @@ class MaskedEEGPretrainer(nn.Module):
     @torch.no_grad()
     def _update_target(self) -> None:
         tau = self.cfg.ema_decay
-        for o, t in zip(self.encoder.parameters(), self.target_encoder.parameters()):
+        for o, t in zip(self.encoder.parameters(), self.target_encoder.parameters(), strict=True):
             t.data.mul_(tau).add_(o.data, alpha=1.0 - tau)
 
     # ------------------------------------------------------------------
@@ -351,8 +352,7 @@ class CausalBENDRFinetuner(nn.Module, BaseModel):
     # BaseModel interface
     # ------------------------------------------------------------------
 
-    def predict_proba(self, eeg: "np.ndarray", subject_id: int) -> "np.ndarray":  # type: ignore[override]
-        import numpy as np
+    def predict_proba(self, eeg: np.ndarray, subject_id: int) -> np.ndarray:  # type: ignore[override]
         self.eval()
         device = next(self.parameters()).device
         x = torch.from_numpy(eeg.T[None]).float().to(device)

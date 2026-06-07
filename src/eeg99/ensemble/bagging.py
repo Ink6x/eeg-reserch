@@ -16,9 +16,9 @@ Typical use
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass, asdict
+from collections.abc import Iterator
+from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Iterator
 
 import numpy as np
 
@@ -50,7 +50,7 @@ class ModelSpec:
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, d: dict) -> "ModelSpec":
+    def from_dict(cls, d: dict) -> ModelSpec:
         return cls(**d)
 
 

@@ -2,21 +2,25 @@
 from __future__ import annotations
 
 import tempfile
-from pathlib import Path
 
 import numpy as np
 import pytest
 import torch
 
 from eeg99.ensemble.bagging import (
-    ModelSpec, OOFStore, build_model_grid, geometric_mean_ensemble,
+    ModelSpec,
+    OOFStore,
+    build_model_grid,
+    geometric_mean_ensemble,
 )
-from eeg99.ensemble.selection import (
-    greedy_forward_selection, compute_pairwise_correlation, rank_by_mean_auc,
-)
-from eeg99.ensemble.tta import TTAWrapper, TTAConfig
 from eeg99.ensemble.calibration import HierarchicalBayesianCalibration
-from eeg99.losses.event_order import EventOrderConsistencyLoss, EventOrderConfig
+from eeg99.ensemble.selection import (
+    compute_pairwise_correlation,
+    greedy_forward_selection,
+    rank_by_mean_auc,
+)
+from eeg99.ensemble.tta import TTAConfig, TTAWrapper
+from eeg99.losses.event_order import EventOrderConfig, EventOrderConsistencyLoss
 from eeg99.losses.focal import FocalLoss
 from eeg99.utils.constants import N_EVENTS, N_SUBJECTS
 

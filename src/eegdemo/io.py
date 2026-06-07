@@ -21,7 +21,9 @@ def _parse_filename(path: Path) -> tuple[int, int, str]:
     return int(m.group(1)), int(m.group(2)), m.group(3)
 
 
-def load_raw(subject: int, series: int, split: str = "train") -> tuple[np.ndarray, np.ndarray | None]:
+def load_raw(
+    subject: int, series: int, split: str = "train"
+) -> tuple[np.ndarray, np.ndarray | None]:
     """
     1 ファイルペアを読み込む。
 
@@ -48,7 +50,9 @@ def load_raw(subject: int, series: int, split: str = "train") -> tuple[np.ndarra
     return eeg, labels
 
 
-def load_subject_series(subject: int, series_list: list[int], split: str = "train") -> tuple[np.ndarray, np.ndarray | None]:
+def load_subject_series(
+    subject: int, series_list: list[int], split: str = "train"
+) -> tuple[np.ndarray, np.ndarray | None]:
     """
     複数 series を時系列順に結合する。
     series 境界は事前に記録しておく (必要なら分割に使う)。

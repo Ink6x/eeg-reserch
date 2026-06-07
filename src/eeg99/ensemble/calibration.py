@@ -75,7 +75,7 @@ class HierarchicalBayesianCalibration:
         logits: np.ndarray,
         labels: np.ndarray,
         subject_ids: np.ndarray,
-    ) -> "HierarchicalBayesianCalibration":
+    ) -> HierarchicalBayesianCalibration:
         """Fit calibration parameters.
 
         Parameters

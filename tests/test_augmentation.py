@@ -27,7 +27,6 @@ from src.eegdemo.augmentation import (
     mixup_batch,
 )
 
-
 N_CH = 32
 N_TIMES = 250
 N_CLASSES = 6
@@ -340,7 +339,6 @@ def test_jittered_dataset_window_within_bounds(
     ds = JitteredEEGWindowDataset(
         eeg, labels, window_samples=250, step_samples=20, max_jitter=10
     )
-    n_frames = len(eeg)
     # サンプルしてチェック
     for i in range(0, len(ds), max(1, len(ds) // 50)):
         x, y = ds[i]

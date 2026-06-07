@@ -65,7 +65,7 @@ class RiemannianExtractor:
     # Public API
     # ------------------------------------------------------------------
 
-    def fit(self, X: np.ndarray) -> "RiemannianExtractor":
+    def fit(self, X: np.ndarray) -> RiemannianExtractor:
         """Estimate the Riemannian mean of training covariance matrices.
 
         Parameters
@@ -171,7 +171,7 @@ def _tangent_vec_scipy(C: np.ndarray, C_ref: np.ndarray) -> np.ndarray:
     Returns the upper-triangle of ``logm(C_ref^{-1/2} C C_ref^{-1/2})``,
     which is the exact Riemannian log map when C_ref is at the identity.
     """
-    from scipy.linalg import sqrtm, logm, inv
+    from scipy.linalg import inv, logm, sqrtm
 
     sqrt_ref = sqrtm(C_ref)
     inv_sqrt_ref = inv(sqrt_ref)

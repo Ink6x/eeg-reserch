@@ -8,7 +8,7 @@ import torch
 from torch.utils.data import Dataset
 
 from eeg99.data.loader import SubjectSeries
-from eeg99.utils.constants import N_EVENTS, SFREQ
+from eeg99.utils.constants import SFREQ
 
 
 @dataclass(frozen=True)

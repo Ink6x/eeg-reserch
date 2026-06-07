@@ -1,19 +1,21 @@
 """Phase 2 W4-W5 + Phase 3 tests: DL models + Hybrid + TCN + CausalBENDR."""
 from __future__ import annotations
 
+import numpy as np
 import pytest
 import torch
-import numpy as np
 
-from eeg99.models.adapter import SubjectAdaptiveFiLM, FiLMLayer
-from eeg99.models.eegnet_plus import MultiScaleEEGNetPlus, MultiScaleEEGNetConfig
-from eeg99.models.conformer_hier import HierarchicalCausalConformer, ConformerConfig
-from eeg99.models.hybrid import HybridModel, HybridConfig
-from eeg99.models.tcn_multi import MultiScaleTCN, TCNConfig
+from eeg99.models.adapter import FiLMLayer, SubjectAdaptiveFiLM
+from eeg99.models.conformer_hier import ConformerConfig, HierarchicalCausalConformer
+from eeg99.models.eegnet_plus import MultiScaleEEGNetConfig, MultiScaleEEGNetPlus
+from eeg99.models.hybrid import HybridConfig, HybridModel
 from eeg99.models.ssl_bendr import (
-    CausalBENDREncoder, BENDRConfig,
-    MaskedEEGPretrainer, CausalBENDRFinetuner,
+    BENDRConfig,
+    CausalBENDREncoder,
+    CausalBENDRFinetuner,
+    MaskedEEGPretrainer,
 )
+from eeg99.models.tcn_multi import MultiScaleTCN
 from eeg99.utils.constants import N_CHANNELS, N_EVENTS, N_SUBJECTS
 
 # ---------------------------------------------------------------------------
@@ -477,7 +479,7 @@ def test_bendr_ema_update_diverges() -> None:
     x = _eeg(W=500)
     _ = pre(x)
     # online vs target should now be slightly different (EMA != exact copy)
-    for o_p, t_p in zip(pre.encoder.parameters(), pre.target_encoder.parameters()):
+    for o_p, t_p in zip(pre.encoder.parameters(), pre.target_encoder.parameters(), strict=True):
         if o_p.numel() > 0:
             # They won't be identical after a gradient step changes online weights
             # but before update. After update they'll be EMA. Just check no NaN.

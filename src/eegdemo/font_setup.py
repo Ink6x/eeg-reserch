@@ -1,5 +1,4 @@
 """matplotlib の日本語フォント設定 (Windows)"""
-import matplotlib
 import matplotlib.pyplot as plt
 
 

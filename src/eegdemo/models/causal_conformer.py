@@ -19,7 +19,6 @@ import torch.nn.functional as F
 
 from ..constants import CHANNEL_POS_2D, CHANNELS
 
-
 # ──────────────────────────────────────────────
 # 因果的 Temporal Convolution Block
 # ──────────────────────────────────────────────
@@ -39,7 +38,9 @@ class CausalConv1d(nn.Module):
 class TCNBlock(nn.Module):
     """Temporal Convolution Block with residual connection"""
 
-    def __init__(self, in_ch: int, out_ch: int, kernel: int, dilation: int, dropout: float = 0.2) -> None:
+    def __init__(
+        self, in_ch: int, out_ch: int, kernel: int, dilation: int, dropout: float = 0.2
+    ) -> None:
         super().__init__()
         self.conv1 = CausalConv1d(in_ch, out_ch, kernel, dilation)
         self.conv2 = CausalConv1d(out_ch, out_ch, kernel, dilation)

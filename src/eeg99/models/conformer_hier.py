@@ -21,11 +21,12 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from eeg99.models.adapter import FiLMLayer, SubjectAdaptiveFiLM
+from eeg99.models.adapter import SubjectAdaptiveFiLM
 from eeg99.models.base import BaseModel, ModelMetadata
 from eeg99.utils.constants import N_CHANNELS, N_EVENTS, N_SUBJECTS
 
@@ -215,8 +216,7 @@ class HierarchicalCausalConformer(nn.Module, BaseModel):
     # BaseModel interface
     # ------------------------------------------------------------------
 
-    def predict_proba(self, eeg: "np.ndarray", subject_id: int) -> "np.ndarray":  # type: ignore[override]
-        import numpy as np
+    def predict_proba(self, eeg: np.ndarray, subject_id: int) -> np.ndarray:  # type: ignore[override]
         self.eval()
         device = next(self.parameters()).device
         x = torch.from_numpy(eeg.T[None]).float().to(device)   # (1, C, T)

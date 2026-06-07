@@ -26,9 +26,9 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from eeg99.features.band_power import BandPowerExtractor
+from eeg99.features.fbcsp import FBCSPExtractor
 from eeg99.features.riemannian import RiemannianExtractor
 from eeg99.features.time_domain import TimeDomainExtractor
-from eeg99.features.fbcsp import FBCSPExtractor
 from eeg99.models.adapter import FiLMLayer
 from eeg99.models.base import BaseModel, ModelMetadata
 from eeg99.utils.constants import N_CHANNELS, N_EVENTS, N_SUBJECTS
@@ -151,7 +151,7 @@ class HybridModel(nn.Module, BaseModel):
         self,
         X: np.ndarray,
         y: np.ndarray | None = None,
-    ) -> "HybridModel":
+    ) -> HybridModel:
         """Fit stateful classical extractors.
 
         Parameters

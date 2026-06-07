@@ -1,7 +1,6 @@
 """Phase 1 tests: data loading, preprocessing, filterbank, dataset, cache."""
 from __future__ import annotations
 
-import tempfile
 from pathlib import Path
 
 import numpy as np
@@ -11,11 +10,10 @@ import torch
 
 from eeg99.data.cache import ParquetCache, make_cache_key
 from eeg99.data.dataset import EEGWindowDataset, UnlabeledEEGDataset, WindowSpec
-from eeg99.data.filterbank import CausalFilterBank, FilterBankConfig
+from eeg99.data.filterbank import CausalFilterBank
 from eeg99.data.loader import CSVGALLoader, SubjectSeries, discover_series
 from eeg99.data.preprocess import (
     CausalPreprocessor,
-    PreprocessConfig,
     assert_no_lookahead,
 )
 from eeg99.utils.constants import (

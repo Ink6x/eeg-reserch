@@ -5,14 +5,13 @@
 import numpy as np
 import pytest
 
+from src.eegdemo.features import make_sliding_windows, make_windows_causal_check
 from src.eegdemo.preprocess import (
     causal_highpass,
     causal_lowpass,
     causal_running_zscore,
     preprocess,
 )
-from src.eegdemo.features import make_sliding_windows, make_windows_causal_check
-
 
 FS = 500.0
 N_FRAMES = 2000
@@ -97,8 +96,12 @@ def test_sliding_windows_are_causal(dummy_eeg: np.ndarray) -> None:
     ウィンドウの内容がすべて end_frame 以前のフレームで構成されることを確認。
     """
     labels = np.zeros((N_FRAMES, 6), dtype=np.int8)
-    windows, _, end_frames = make_sliding_windows(dummy_eeg, labels, window_samples=250, step_samples=10)
-    assert make_windows_causal_check(windows, end_frames), "スライディングウィンドウが未来フレームを含んでいます"
+    windows, _, end_frames = make_sliding_windows(
+        dummy_eeg, labels, window_samples=250, step_samples=10
+    )
+    assert make_windows_causal_check(
+        windows, end_frames
+    ), "スライディングウィンドウが未来フレームを含んでいます"
 
 
 def test_sliding_window_content_matches_eeg(dummy_eeg: np.ndarray) -> None:
@@ -107,7 +110,9 @@ def test_sliding_window_content_matches_eeg(dummy_eeg: np.ndarray) -> None:
     """
     labels = np.zeros((N_FRAMES, 6), dtype=np.int8)
     window_samples = 100
-    windows, _, end_frames = make_sliding_windows(dummy_eeg, labels, window_samples=window_samples, step_samples=50)
+    windows, _, end_frames = make_sliding_windows(
+        dummy_eeg, labels, window_samples=window_samples, step_samples=50
+    )
 
     for i, end in enumerate(end_frames[:5]):  # 最初の5件を検証
         expected = dummy_eeg[end - window_samples + 1: end + 1]

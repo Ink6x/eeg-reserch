@@ -6,9 +6,9 @@ from __future__ import annotations
 from pathlib import Path
 
 import matplotlib
+
 matplotlib.use("Agg")  # GUI なし環境でも動作
 import matplotlib.pyplot as plt
-import matplotlib.gridspec as gridspec
 import numpy as np
 
 from .constants import CHANNEL_POS_2D, CHANNELS, EVENTS, MOTOR_CHANNELS, SAMPLING_RATE
@@ -178,12 +178,12 @@ def plot_roc_curves(
     save_name: str | None = None,
 ) -> plt.Figure:
     """6イベント全ての ROC 曲線を 1 図に描画"""
-    from sklearn.metrics import roc_curve, auc
+    from sklearn.metrics import auc, roc_curve
 
     fig, ax = plt.subplots(figsize=(7, 5))
     colors = plt.cm.tab10(np.linspace(0, 1, len(EVENTS)))
 
-    for i, (event, color) in enumerate(zip(EVENTS, colors)):
+    for i, (event, color) in enumerate(zip(EVENTS, colors, strict=True)):
         yt = y_true[:, i]
         ys = y_score[:, i]
         if yt.sum() == 0:

@@ -11,9 +11,6 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, Dataset
 
-from .constants import EVENTS, SAMPLING_RATE
-from .features import make_sliding_windows
-
 # AMD GPU: torch-directml で DML デバイスを使用
 try:
     import torch_directml
@@ -89,7 +86,9 @@ class EEGWindowDataset(Dataset):
 class FocalLoss(nn.Module):
     """Multi-label focal loss"""
 
-    def __init__(self, gamma: float = 2.0, alpha: float = 0.25, label_smoothing: float = 0.0) -> None:
+    def __init__(
+        self, gamma: float = 2.0, alpha: float = 0.25, label_smoothing: float = 0.0
+    ) -> None:
         super().__init__()
         self.gamma = gamma
         self.alpha = alpha
